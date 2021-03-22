@@ -6,10 +6,16 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/rails6 for more book information.
 #---
-Rails.application.routes.draw do
-  root 'store#index', as: 'store_index'
-  resources :products
-  # For details on the DSL available within this file, see
-  # https://guides.rubyonrails.org/routing.html
-end
+require 'test_helper'
 
+class StoreControllerTest < ActionDispatch::IntegrationTest
+  test "should get index" do
+    get store_index_url
+    assert_response :success
+    assert_select 'nav.side_nav a', minimum: 4 
+    assert_select 'main ul.catalog li', 3
+    assert_select 'h2', 'Programming Ruby 1.9'
+    assert_select '.price', /\$[,\d]+\.\d\d/
+  end
+
+end

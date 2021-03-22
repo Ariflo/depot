@@ -46,4 +46,10 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to products_url
   end
+
+  test "should include input for title" do
+    get products_url
+    assert_response :success
+    assert_select 'td.description h1', minimum: 3
+  end
 end

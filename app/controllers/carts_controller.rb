@@ -18,6 +18,10 @@ class CartsController < ApplicationController
   # GET /carts/1
   # GET /carts/1.json
   def show
+    if @cart.id != session[:cart_id]
+      logger.error "Attempt to access another cart #{@cart.id }"
+      redirect_to store_index_url, notice: 'Not current cart'
+    end
   end
 
   # GET /carts/new

@@ -4,6 +4,8 @@ class LineItemsController < ApplicationController
   before_action :reset_store_session_counter, only: [:create]
   before_action :set_line_item, only: %i[ show edit update destroy ]
 
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_line_item
+
   # GET /line_items or /line_items.json
   def index
     @line_items = LineItem.all
@@ -57,7 +59,7 @@ class LineItemsController < ApplicationController
   def destroy
     @line_item.destroy
     respond_to do |format|
-      format.html { redirect_to line_items_url, notice: "Line item was successfully destroyed." }
+      format.html { redirect_to @line_item.cart, notice: "Line item was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -71,5 +73,10 @@ class LineItemsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def line_item_params
       params.require(:line_item).permit(:product_id)
+    end
+
+    def invalid_line_item
+      logger.error "Attempt to access invalid cart line item #{params[:id]}"
+      redirect_to store_index_url, notice: 'Invalid line item'
     end
 end

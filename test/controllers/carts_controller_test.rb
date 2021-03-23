@@ -1,4 +1,12 @@
-require "test_helper"
+#---
+# Excerpted from "Agile Web Development with Rails 6",
+# published by The Pragmatic Bookshelf.
+# Copyrights apply to this code. It may not be used to create training material,
+# courses, books, articles, and the like. Contact us if you are in doubt.
+# We make no guarantees that this code is fit for any purpose.
+# Visit http://www.pragmaticprogrammer.com/titles/rails6 for more book information.
+#---
+require 'test_helper'
 
 class CartsControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -37,12 +45,15 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
     patch cart_url(@cart), params: { cart: {  } }
     assert_redirected_to cart_url(@cart)
   end
-
+  
   test "should destroy cart" do
+    post line_items_url, params: { product_id: products(:ruby).id }
+    @cart = Cart.find(session[:cart_id])
+
     assert_difference('Cart.count', -1) do
       delete cart_url(@cart)
     end
 
-    assert_redirected_to carts_url
+    assert_redirected_to store_index_url
   end
 end

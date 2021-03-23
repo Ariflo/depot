@@ -6,4 +6,10 @@ class ApplicationController < ActionController::Base
     def set_current_time_and_date
         @time = Time.now
     end
+
+    def reset_store_session_counter
+      unless session[:counter].nil?
+        session[:counter] = 0
+      end
+    end
 end

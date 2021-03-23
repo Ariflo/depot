@@ -6,12 +6,14 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/rails6 for more book information.
 #---
-Rails.application.routes.draw do
-  resources :line_items
-  resources :carts
-  root 'store#index', as: 'store_index'
-  resources :products
-  # For details on the DSL available within this file, see
-  # https://guides.rubyonrails.org/routing.html
-end
+module CurrentCart
 
+    private
+  
+      def set_cart 
+        @cart = Cart.find(session[:cart_id])
+      rescue ActiveRecord::RecordNotFound
+        @cart = Cart.create
+        session[:cart_id] = @cart.id
+      end
+  end

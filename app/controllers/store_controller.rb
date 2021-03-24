@@ -5,6 +5,7 @@ class StoreController < ApplicationController
 
   def index
     @products = Product.order(:title)
+    @changed_product = get_changed_product
   end
 
   private

@@ -16,11 +16,7 @@
     </header>
     <section class="content">
       <nav class="side_nav">
-      <div id="cart" class="carts">
-      <% if @cart %>
-        <%= render_if @cart && @cart.line_items.any?, @cart %>
-      <%end%>
-      </div>
+      <div id="cart" class="carts"></div>
         <ul>
           <li><a  href="/"><%= @time %></a></li>
           <li><a href="/">Home</a></li>

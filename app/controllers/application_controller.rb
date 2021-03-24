@@ -12,4 +12,12 @@ class ApplicationController < ActionController::Base
         session[:counter] = 0
       end
     end
+
+    def set_changed_product(product)
+      @changed_product = product
+    end
+
+    def get_changed_product
+      @changed_product
+    end
 end

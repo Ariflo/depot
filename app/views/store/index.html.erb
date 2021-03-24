@@ -3,7 +3,7 @@
 <% end %>
 
 <h1>Your Pragmatic Catalog</h1>
-<% if @session_counter > 5%>
+<% if @session_counter %>
 <p>You visited this page <%= pluralize(@session_counter, 'time') %></p>
 <% end %>
 
@@ -19,7 +19,7 @@
           </p>
           <div class="price">
             <%= number_to_currency(product.price, strip_insignificant_zeros: true) %>
-            <%= button_to 'Add to Cart', line_items_path(product_id: product)%>
+            <%= button_to 'Add to Cart', line_items_path(product_id: product), remote: true %>
           </div>
         </li>
       <% end %>

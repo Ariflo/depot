@@ -1,2 +1,9 @@
+remove_button = document.getElementById("remove_button")
 quantity = document.getElementById("quantity")
-quantity.innerHTML = "<%= j @quantity %>"
+quantity.innerHTML = "<%= j @changed_line_item.quantity %>"
+
+if (quantity.innerHTML == 1) {
+    remove_button.innerHTML = "<%= j button_to 'Remove Item', @changed_line_item, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>"
+} else {
+  remove_button.innerHTML = "<%= j button_to 'Remove Item', line_item_path(@changed_line_item), :params => { :line_item => {:product_id => @changed_line_item.product_id, :quantity => @changed_line_item.quantity-1 } }, method: :patch, remote: true %>"
+}

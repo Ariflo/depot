@@ -6,17 +6,18 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/rails6 for more book information.
 #---
-Rails.application.routes.draw do
-  resources :payment_types
-  resources :orders
-  resources :line_items
-  resources :carts
-  root 'store#index', as: 'store_index'
-  resources :products do
-    get :who_bought, on: :member
+class Order < ApplicationRecord
+  has_many :line_items, dependent: :destroy
+  has_one :payment_type
+  # ...
+  validates :name, :address, :email, presence: true
+  validates :pay_type, inclusion: PaymentType.distinct.pluck(:id)
+
+  
+  def add_line_items_from_cart(cart)
+    cart.line_items.each do |item|
+      item.cart_id = nil
+      line_items << item
+    end
   end
-
-  # For details on the DSL available within this file, see
-  # https://guides.rubyonrails.org/routing.html
 end
-

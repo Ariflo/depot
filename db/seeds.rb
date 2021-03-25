@@ -57,3 +57,7 @@ Product.create!(title: 'Programming Crystal',
       </p>},
   image_url: 'crystal.jpg',
   price: 40.00)
+PaymentType.delete_all
+PaymentType.create!(pay_type: "Check")
+PaymentType.create!(pay_type: "Credit card")
+PaymentType.create!(pay_type: "Purchase order")

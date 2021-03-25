@@ -48,7 +48,7 @@ class LineItemsController < ApplicationController
     respond_to do |format|
       if @line_item.update(line_item_params)
         format.html { redirect_to store_index_url, notice: "1 #{Product.find_by(id: @line_item.product_id).title} was successfully removed."}
-        format.js { @quantity = @line_item.quantity } 
+        # format.js { @changed_line_item = @line_item } 
         format.json { render :show, status: :ok, location: @line_item }
       else
         format.html { render :edit, status: :unprocessable_entity }

@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      if @user.update(user_params.except(:current_password))
+      if @user.update(user_params)
         format.html { redirect_to users_url,
           notice: "User #{@user.name} was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
@@ -86,12 +86,16 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :current_password, :password, :password_confirmation)
+      params.require(:user).permit(:name, :password, :password_confirmation)
+    end
+
+    def update_user_params
+      params.require(:user).permit(:current_password)
     end
 
   private
   def current_password_is_correct
-    if !@user.try(:authenticate, params[:current_password])
+    if !@user.authenticate(params[:current_password])
       raise User::Error.new "Wrong Current Password"
     end
   end

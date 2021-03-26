@@ -23,8 +23,7 @@
 
   <% if user.persisted? %>
   <div class="field">
-    <%= form.label :current_password, 'Current Password:' %>
-    <%= form.password_field :current_password, size: 40 %>
+    <%= password_field_tag :current_password, params[:current_password], placeholder: "Current password" %>
   </div>
   <% end %>
 

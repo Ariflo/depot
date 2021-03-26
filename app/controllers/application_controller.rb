@@ -9,6 +9,12 @@ class ApplicationController < ActionController::Base
       unless User.find_by(id: session[:user_id])
         redirect_to login_url, notice: "Please log in"
       end
+
+      authenticate_or_request_with_http_basic('Application') do |username, password|
+        unless User.find_by(id: session[:user_id])
+          redirect_to login_url, notice: "Please log in"
+        end
+      end
     end
 
     def set_current_time_and_date

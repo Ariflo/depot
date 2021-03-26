@@ -8,10 +8,11 @@ import PurchaseOrderPayType from './PurchaseOrderPayType';
 class PayTypeSelector extends React.Component {
   constructor(props) {
     super(props);
+    this.onPayTypeSelected = this.onPayTypeSelected.bind(this);
     this.state = { selectedPayType: null };
   }
 
-  onPayTypeSelected = (event) => {
+  onPayTypeSelected(event) {
     this.setState({ selectedPayType: event.target.value });
   }
 
@@ -27,13 +28,28 @@ class PayTypeSelector extends React.Component {
     return (
       <div>
         <div className="field">
-          <label htmlFor="order_pay_type">Pay type</label>
+          <label htmlFor="order_pay_type">
+            {I18n.t("orders.form.pay_type")}
+          </label>
+
           <select id="order_pay_type" onChange={this.onPayTypeSelected} 
             name="order[pay_type]">
-            <option value="">Select a payment method</option>
-            <option value="Check">Check</option>
-            <option value="Credit card">Credit card</option>
-            <option value="Purchase order">Purchase order</option>
+            <option value="">
+              {I18n.t("orders.form.pay_prompt_html")}
+            </option>
+
+            <option value="Check">
+              {I18n.t("orders.form.pay_types.check")}
+            </option>
+
+            <option value="Credit card">
+              {I18n.t("orders.form.pay_types.credit_card")}
+            </option>
+
+            <option value="Purchase order">
+              {I18n.t("orders.form.pay_types.purchase_order")}
+            </option>
+
           </select>
         </div>
         <PayTypeCustomComponent />

@@ -6,8 +6,12 @@ class StoreController < ApplicationController
   skip_before_action :authorize
 
   def index
-    @products = Product.order(:title)
-    @changed_product = get_changed_product
+    if params[:set_locale]
+      redirect_to store_index_url(locale: params[:set_locale])
+    else
+      @products = Product.order(:title)
+      @changed_product = get_changed_product
+    end
   end
 
   private

@@ -21,6 +21,13 @@
     <%= form.text_field :name, size: 40 %>
   </div>
 
+  <% if user.persisted? %>
+  <div class="field">
+    <%= form.label :current_password, 'Current Password:' %>
+    <%= form.password_field :current_password, size: 40 %>
+  </div>
+  <% end %>
+
   <div class="field">
     <%= form.label :password, 'Password:' %>
     <%= form.password_field :password, size: 40 %>

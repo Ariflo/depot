@@ -7,6 +7,8 @@
 # Visit http://www.pragmaticprogrammer.com/titles/rails6 for more book information.
 #---
 class CartsController < ApplicationController
+  skip_before_action :authorize
+  
   before_action :set_cart, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
   # GET /carts

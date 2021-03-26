@@ -3,6 +3,8 @@ class StoreController < ApplicationController
   before_action :set_cart
   before_action :set_store_counter, only:[:index]
 
+  skip_before_action :authorize
+
   def index
     @products = Product.order(:title)
     @changed_product = get_changed_product
